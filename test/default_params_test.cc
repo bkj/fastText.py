@@ -1,7 +1,9 @@
 /* To print the value of default params from fasttext(1) */
 #include <iostream>
 
-#include "../fasttext/cpp/src/args.h"
+#include "../../src/args.h"
+
+using namespace fasttext;
 
 int main(int argc, char **argv)
 {

@@ -31,9 +31,7 @@ class WordVectorModel(object):
     def cosine_similarity(self, first_word, second_word):
         v1 = self.__getitem__(first_word)
         v2 = self.__getitem__(second_word)
-        dot_product = np.dot(v1, v2)
-        cosine_sim = dot_product / (norm(v1) * norm(v2))
-        return cosine_sim
+        return np.dot(v1, v2) / (norm(v1) * norm(v2))
 
 # Class for classifier model
 class SupervisedModel(object):
@@ -60,20 +58,12 @@ class SupervisedModel(object):
         return self._model.classifier_test(test_file, k, self.encoding)
 
     def predict(self, texts, k=1):
-        all_labels = []
-        for text in texts:
-            labels = self._model.classifier_predict(text, k,
-                    self.label_prefix, self.encoding)
-            all_labels.append(labels)
-        return all_labels
+        return [self._model.classifier_predict(text, k,
+                    self.label_prefix, self.encoding) for text in texts]
 
     def predict_proba(self, texts, k=1):
-        results = []
-        for text in texts:
-            result = self._model.classifier_predict_prob(text, k,
-                    self.label_prefix, self.encoding)
-            results.append(result)
-        return results
+        return [self._model.classifier_predict_prob(text, k,
+                    self.label_prefix, self.encoding) for text in texts]
 
 # Class for test result
 class ClassifierTestResult(object):
