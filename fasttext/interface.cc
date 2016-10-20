@@ -8,13 +8,15 @@
 #include <iomanip>
 
 #include "interface.h"
-#include "cpp/src/real.h"
-#include "cpp/src/args.h"
-#include "cpp/src/dictionary.h"
-#include "cpp/src/matrix.h"
-#include "cpp/src/vector.h"
-#include "cpp/src/model.h"
-#include "cpp/src/fasttext.h"
+#include "../../src/real.h"
+#include "../../src/args.h"
+#include "../../src/dictionary.h"
+#include "../../src/matrix.h"
+#include "../../src/vector.h"
+#include "../../src/model.h"
+#include "../../src/fasttext.h"
+
+using namespace fasttext;
 
 FastTextModel::FastTextModel(){}
 

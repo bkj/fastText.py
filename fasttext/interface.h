@@ -5,11 +5,13 @@
 #include <vector>
 #include <memory>
 
-#include "cpp/src/real.h"
-#include "cpp/src/args.h"
-#include "cpp/src/dictionary.h"
-#include "cpp/src/matrix.h"
-#include "cpp/src/model.h"
+#include "../../src/real.h"
+#include "../../src/args.h"
+#include "../../src/dictionary.h"
+#include "../../src/matrix.h"
+#include "../../src/model.h"
+
+using namespace fasttext;
 
 class FastTextModel {
     private:

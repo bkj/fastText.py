@@ -4,14 +4,14 @@ from libcpp.vector cimport vector
 from libc.stdint cimport int32_t
 from libcpp.memory cimport shared_ptr
 
-cdef extern from "cpp/src/real.h":
+cdef extern from "../../src/real.h":
     ctypedef float real
 
-cdef extern from "cpp/src/args.h":
+cdef extern from "../../src/args.h":
     cdef cppclass Args:
         Args()
 
-cdef extern from "cpp/src/dictionary.h":
+cdef extern from "../../src/dictionary.h":
     cdef cppclass Dictionary:
         Dictionary(shared_ptr[Args])
 

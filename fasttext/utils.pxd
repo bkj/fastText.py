@@ -1,5 +1,5 @@
 # Wrapper for fastText Utils
-cdef extern from 'cpp/src/utils.h' namespace 'utils':
+cdef extern from '../../src/utils.h' namespace 'utils':
     void initTables()
     void freeTables()
 

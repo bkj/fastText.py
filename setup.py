@@ -15,13 +15,13 @@ extensions = [
         sources=[
             'fasttext/fasttext.pyx',
             'fasttext/interface.cc',
-            'fasttext/cpp/src/args.cc',
-            'fasttext/cpp/src/dictionary.cc',
-            'fasttext/cpp/src/matrix.cc',
-            'fasttext/cpp/src/model.cc',
-            'fasttext/cpp/src/utils.cc',
-            'fasttext/cpp/src/fasttext.cc',
-            'fasttext/cpp/src/vector.cc'
+            '../src/args.cc',
+            '../src/dictionary.cc',
+            '../src/matrix.cc',
+            '../src/model.cc',
+            '../src/utils.cc',
+            '../src/fasttext.cc',
+            '../src/vector.cc'
         ],
         language='c++',
         extra_compile_args=extra_compile_args)
