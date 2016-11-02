@@ -27,6 +27,7 @@ class FastTextModel {
         int ws;
         int epoch;
         int minCount;
+        int minCountLabel;
         int neg;
         int wordNgrams;
         std::string lossName;
@@ -57,6 +58,7 @@ class FastTextModel {
         std::string dictGetWord(int32_t i);
         int32_t dictGetNLabels();
         std::string dictGetLabel(int32_t i);
+        std::vector<real> dictGetLabelVector(int32_t i);
 };
 
 void trainWrapper(int argc, char **argv, int silent);

@@ -42,6 +42,9 @@ cdef class FastTextModelWrapper:
         cpp_string = self.fm.dictGetLabel(i)
         return cpp_string.decode(encoding)
 
+    def dict_get_label_vector(self, i):
+        return self.fm.dictGetLabelVector(i)
+    
     def get_vector(self, word, encoding):
         word_bytes = bytes(word, encoding)
         return self.fm.getVectorWrapper(word_bytes)
@@ -97,7 +100,11 @@ cdef class FastTextModelWrapper:
     @property
     def minCount(self):
         return self.fm.minCount
-
+        
+    @property
+    def minCountLabel(self):
+        return self.fm.minCountLabel
+        
     @property
     def neg(self):
         return self.fm.neg
@@ -178,8 +185,8 @@ def load_model(filename, label_prefix='', encoding='utf-8'):
 
 # Wrapper for train(int argc, char *argv) C++ function in cpp/src/fasttext.cc
 def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
-        epoch, min_count, neg, word_ngrams, loss, bucket, minn, maxn, thread,
-        lr_update_rate, t, silent=1, encoding='utf-8'):
+        epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn, 
+        maxn, thread, lr_update_rate, t, silent=1, encoding='utf-8'):
 
     # Check if the input_file is valid
     if not os.path.isfile(input_file):
@@ -200,10 +207,10 @@ def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
     # Setup argv, arguments and their values
     py_argv = [b'fasttext', bytes(model_name, 'utf-8')]
     py_args = [b'-input', b'-output', b'-lr', b'-dim', b'-ws', b'-epoch',
-            b'-minCount', b'-neg', b'-wordNgrams', b'-loss', b'-bucket',
+            b'-minCount', b'-minCountLabel', b'-neg', b'-wordNgrams', b'-loss', b'-bucket',
             b'-minn', b'-maxn', b'-thread', b'-lrUpdateRate', b'-t']
-    values = [input_file, output, lr, dim, ws, epoch, min_count, neg,
-            word_ngrams, loss, bucket, minn, maxn, thread, lr_update_rate, t]
+    values = [input_file, output, lr, dim, ws, epoch, min_count, min_count_label, 
+            neg, word_ngrams, loss, bucket, minn, maxn, thread, lr_update_rate, t]
 
     # Add -label params for supervised model
     if model_name == 'supervised':
@@ -236,27 +243,29 @@ def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
 
 # Learn word representation using skipgram model
 def skipgram(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
-        neg=5, word_ngrams=1, loss='ns', bucket=2000000, minn=3, maxn=6,
-        thread=12, lr_update_rate=100, t=1e-4, silent=1, encoding='utf-8'):
+        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000, 
+        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, silent=1,
+        encoding='utf-8'):
     label_prefix = ''
     return train_wrapper('skipgram', input_file, output, label_prefix, lr,
-            dim, ws, epoch, min_count, neg, word_ngrams, loss, bucket, minn,
+            dim, ws, epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn,
             maxn, thread, lr_update_rate, t, silent, encoding='utf-8')
 
 # Learn word representation using CBOW model
 def cbow(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
-        neg=5, word_ngrams=1, loss='ns', bucket=2000000, minn=3, maxn=6,
-        thread=12, lr_update_rate=100, t=1e-4, silent=1, encoding='utf-8'):
+        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000, 
+        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, silent=1, 
+        encoding='utf-8'):
     label_prefix = ''
     return train_wrapper('cbow', input_file, output, label_prefix, lr, dim,
-            ws, epoch, min_count, neg, word_ngrams, loss, bucket, minn, maxn,
+            ws, epoch, min_count,  min_count_label, neg, word_ngrams, loss, bucket, minn, maxn,
             thread, lr_update_rate, t, silent, encoding)
 
 # Train classifier
 def supervised(input_file, output, label_prefix='__label__', lr=0.1, dim=100,
-        ws=5, epoch=5, min_count=1, neg=5, word_ngrams=1, loss='softmax',
-        bucket=0, minn=0, maxn=0, thread=12, lr_update_rate=100,
-        t=1e-4, silent=1, encoding='utf-8'):
+        ws=5, epoch=5, min_count=1, min_count_label=0, neg=5, word_ngrams=1, 
+        loss='softmax', bucket=0, minn=0, maxn=0, thread=12, 
+        lr_update_rate=100, t=1e-4, silent=1, encoding='utf-8'):
     return train_wrapper('supervised', input_file, output, label_prefix, lr,
-            dim, ws, epoch, min_count, neg, word_ngrams, loss, bucket, minn,
+            dim, ws, epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn,
             maxn, thread, lr_update_rate, t, silent, encoding)

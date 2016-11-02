@@ -11,6 +11,7 @@ class WordVectorModel(object):
         self.ws = model.ws
         self.epoch = model.epoch
         self.min_count = model.minCount
+        self.min_count_label = model.minCountLabel
         self.neg = model.neg
         self.word_ngrams = model.wordNgrams
         self.loss_name = model.lossName.decode(encoding)
@@ -42,6 +43,7 @@ class SupervisedModel(object):
         self.ws = model.ws
         self.epoch = model.epoch
         self.min_count = model.minCount
+        self.min_count_label = model.minCountLabel
         self.neg = model.neg
         self.word_ngrams = model.wordNgrams
         self.loss_name = model.lossName.decode(encoding)

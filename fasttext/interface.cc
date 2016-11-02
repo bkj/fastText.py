@@ -36,6 +36,7 @@ void FastTextModel::setArgs(std::shared_ptr<Args> args)
     ws = args->ws;
     epoch = args->epoch;
     minCount = args->minCount;
+    minCountLabel = args->minCountLabel;
     neg = args->neg;
     wordNgrams = args->wordNgrams;
     if(args->loss == loss_name::ns) {
@@ -102,6 +103,15 @@ int32_t FastTextModel::dictGetNLabels()
 std::string FastTextModel::dictGetLabel(int32_t i)
 {
     return _dict->getLabel(i);
+}
+
+std::vector<real> FastTextModel::dictGetLabelVector(int32_t i)
+{
+    Vector vec(dim);
+    vec.zero();
+    vec.addRow(*_output_matrix, i);
+    std::vector<real> vector(vec.data_, vec.data_ + vec.m_);
+    return vector;
 }
 
 /* We use the same logic as FastText::getVector here; Because

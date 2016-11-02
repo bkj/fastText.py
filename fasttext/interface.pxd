@@ -28,6 +28,7 @@ cdef extern from "interface.h":
         int ws
         int epoch
         int minCount
+        int minCountLabel
         int neg
         int wordNgrams
         string lossName
@@ -49,6 +50,7 @@ cdef extern from "interface.h":
         string dictGetWord(int32_t i)
         int32_t dictGetNLabels()
         string dictGetLabel(int32_t i)
+        vector[real] dictGetLabelVector(int32_t i)
 
     void trainWrapper(int argc, char **argvm, int silent)
 
