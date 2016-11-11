@@ -63,6 +63,7 @@ void FastTextModel::setArgs(std::shared_ptr<Args> args)
     lrUpdateRate = args->lrUpdateRate;
     t = args->t;
     lr = args->lr;
+    verbose = args->verbose;
 }
 
 void FastTextModel::setDictionary(std::shared_ptr<Dictionary> dict)
@@ -104,6 +105,17 @@ std::string FastTextModel::dictGetLabel(int32_t i)
 {
     return _dict->getLabel(i);
 }
+
+std::vector<int64_t> FastTextModel::dictGetWordCounts()
+{
+    return _dict->getCounts(entry_type::word);
+}
+
+std::vector<int64_t> FastTextModel::dictGetLabelCounts()
+{
+    return _dict->getCounts(entry_type::label);
+}
+
 
 std::vector<real> FastTextModel::dictGetLabelVector(int32_t i)
 {

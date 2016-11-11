@@ -38,6 +38,7 @@ class FastTextModel {
         double lr;
         int lrUpdateRate;
         double t;
+        int verbose;
 
         std::vector<std::string> getWords();
         std::vector<real> getVectorWrapper(std::string word);
@@ -59,6 +60,8 @@ class FastTextModel {
         int32_t dictGetNLabels();
         std::string dictGetLabel(int32_t i);
         std::vector<real> dictGetLabelVector(int32_t i);
+        std::vector<int64_t> dictGetWordCounts();
+        std::vector<int64_t> dictGetLabelCounts();
 };
 
 void trainWrapper(int argc, char **argv, int silent);

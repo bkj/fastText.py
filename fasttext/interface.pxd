@@ -1,7 +1,7 @@
 # fastText C++ interface
 from libcpp.string cimport string
 from libcpp.vector cimport vector
-from libc.stdint cimport int32_t
+from libc.stdint cimport int32_t, int64_t
 from libcpp.memory cimport shared_ptr
 
 cdef extern from "../../src/real.h":
@@ -38,6 +38,7 @@ cdef extern from "interface.h":
         int maxn
         int lrUpdateRate
         double t
+        int verbose
 
         vector[string] getWords()
         vector[real] getVectorWrapper(string word)
@@ -51,6 +52,8 @@ cdef extern from "interface.h":
         int32_t dictGetNLabels()
         string dictGetLabel(int32_t i)
         vector[real] dictGetLabelVector(int32_t i)
+        vector[int64_t] dictGetWordCounts()
+        vector[int64_t] dictGetLabelCounts()
 
     void trainWrapper(int argc, char **argvm, int silent)
 

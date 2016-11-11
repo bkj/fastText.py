@@ -21,6 +21,7 @@ class WordVectorModel(object):
         self.maxn = model.maxn
         self.lr_update_rate = model.lrUpdateRate
         self.t = model.t
+        self.verbose = model.verbose
         self.encoding = encoding
 
     def __getitem__(self, word):
@@ -53,6 +54,7 @@ class SupervisedModel(object):
         self.maxn = model.maxn
         self.lr_update_rate = model.lrUpdateRate
         self.t = model.t
+        self.verbose = model.verbose
         self.label_prefix = label_prefix
         self.encoding = encoding
 
