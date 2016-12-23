@@ -266,8 +266,8 @@ def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
 
 # Learn word representation using skipgram model
 def skipgram(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
-        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000, 
-        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2, 
+        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000,
+        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
         silent=1, encoding='utf-8'):
     label_prefix = ''
@@ -279,8 +279,8 @@ def skipgram(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
 
 # Learn word representation using CBOW model
 def cbow(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
-        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000, 
-        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2, 
+        min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000,
+        minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
         silent=1, encoding='utf-8'):
     label_prefix = ''
@@ -292,9 +292,9 @@ def cbow(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
 
 # Train classifier
 def supervised(input_file, output, label_prefix='__label__', lr=0.1, dim=100,
-        ws=5, epoch=5, min_count=1, min_count_label=0, neg=5, word_ngrams=1, 
-        loss='softmax', bucket=0, minn=0, maxn=0, thread=12, 
-        lr_update_rate=100, t=1e-4, verbose=2, 
+        ws=5, epoch=5, min_count=1, min_count_label=0, neg=5, word_ngrams=1,
+        loss='softmax', bucket=2000000, minn=0, maxn=0, thread=12,
+        lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
         silent=1, encoding='utf-8'):
     return train_wrapper('supervised', input_file, output, label_prefix, lr,
