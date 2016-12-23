@@ -39,6 +39,10 @@ class FastTextModel {
         int lrUpdateRate;
         double t;
         int verbose;
+        
+        int saveVectors;
+        int saveLabelVectors;
+        std::string dictionary;
 
         std::vector<std::string> getWords();
         std::vector<real> getVectorWrapper(std::string word);

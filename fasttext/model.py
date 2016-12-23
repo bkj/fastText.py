@@ -22,6 +22,11 @@ class WordVectorModel(object):
         self.lr_update_rate = model.lrUpdateRate
         self.t = model.t
         self.verbose = model.verbose
+        
+        self.dictionary = model.dictionary
+        self.save_vectors = model.saveVectors
+        self.save_label_vectors = model.saveLabelVectors
+        
         self.encoding = encoding
 
     def __getitem__(self, word):
@@ -55,6 +60,11 @@ class SupervisedModel(object):
         self.lr_update_rate = model.lrUpdateRate
         self.t = model.t
         self.verbose = model.verbose
+        
+        self.dictionary = model.dictionary
+        self.save_vectors = model.saveVectors
+        self.save_label_vectors = model.saveLabelVectors
+        
         self.label_prefix = label_prefix
         self.encoding = encoding
 

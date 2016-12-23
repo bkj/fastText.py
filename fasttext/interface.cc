@@ -64,6 +64,10 @@ void FastTextModel::setArgs(std::shared_ptr<Args> args)
     t = args->t;
     lr = args->lr;
     verbose = args->verbose;
+    
+    saveVectors = args->saveVectors;
+    saveLabelVectors = args->saveLabelVectors;
+    dictionary = args->dictionary;
 }
 
 void FastTextModel::setDictionary(std::shared_ptr<Dictionary> dict)

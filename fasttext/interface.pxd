@@ -40,6 +40,10 @@ cdef extern from "interface.h":
         double t
         int verbose
 
+        int saveVectors
+        int saveLabelVectors
+        string dictionary
+
         vector[string] getWords()
         vector[real] getVectorWrapper(string word)
         vector[double] classifierTest(string filename, int32_t k)
