@@ -26,6 +26,8 @@ class WordVectorModel(object):
         self.dictionary = model.dictionary
         self.save_vectors = model.saveVectors
         self.save_label_vectors = model.saveLabelVectors
+        self.drop_input = model.dropInput
+        self.lr_freeze = model.lrFreeze
         
         self.encoding = encoding
 
@@ -64,7 +66,9 @@ class SupervisedModel(object):
         self.dictionary = model.dictionary
         self.save_vectors = model.saveVectors
         self.save_label_vectors = model.saveLabelVectors
-        
+        self.drop_input = model.dropInput
+        self.lr_freeze = model.lrFreeze
+
         self.label_prefix = label_prefix
         self.encoding = encoding
 

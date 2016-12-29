@@ -43,6 +43,8 @@ class FastTextModel {
         int saveVectors;
         int saveLabelVectors;
         std::string dictionary;
+        double dropInput;
+        int lrFreeze;
 
         std::vector<std::string> getWords();
         std::vector<real> getVectorWrapper(std::string word);

@@ -43,6 +43,8 @@ cdef extern from "interface.h":
         int saveVectors
         int saveLabelVectors
         string dictionary
+        double dropInput
+        int lrFreeze
 
         vector[string] getWords()
         vector[real] getVectorWrapper(string word)

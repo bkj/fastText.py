@@ -68,6 +68,8 @@ void FastTextModel::setArgs(std::shared_ptr<Args> args)
     saveVectors = args->saveVectors;
     saveLabelVectors = args->saveLabelVectors;
     dictionary = args->dictionary;
+    dropInput = args->dropInput;
+    lrFreeze = args->lrFreeze;
 }
 
 void FastTextModel::setDictionary(std::shared_ptr<Dictionary> dict)

@@ -163,6 +163,14 @@ cdef class FastTextModelWrapper:
         return self.fm.dictionary
 
     @property
+    def dropInput(self):
+        return self.fm.dropInput
+
+    @property
+    def lrFreeze(self):
+        return self.fm.lrFreeze
+
+    @property
     def verbose(self):
         return self.fm.verbose
 
@@ -206,6 +214,7 @@ def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
         epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn, 
         maxn, thread, lr_update_rate, t, verbose,
         save_vectors, save_label_vectors, dictionary,
+        drop_input, lr_freeze,
         silent=1, encoding='utf-8'):
 
     # Check if the input_file is valid
@@ -230,11 +239,13 @@ def train_wrapper(model_name, input_file, output, label_prefix, lr, dim, ws,
         b'-input', b'-output', b'-lr', b'-dim', b'-ws', b'-epoch',
         b'-minCount', b'-minCountLabel', b'-neg', b'-wordNgrams', b'-loss', b'-bucket',
         b'-minn', b'-maxn', b'-thread', b'-lrUpdateRate', b'-t', b'-verbose',
-        b'-saveVectors', b'-saveLabelVectors', b'-dictionary'
+        b'-saveVectors', b'-saveLabelVectors', b'-dictionary',
+        b'-dropInput', b'-lrFreeze'
     ]
     values = [input_file, output, lr, dim, ws, epoch, min_count, min_count_label, 
             neg, word_ngrams, loss, bucket, minn, maxn, thread, lr_update_rate, 
-            t, verbose, save_vectors, save_label_vectors, dictionary]
+            t, verbose, save_vectors, save_label_vectors, dictionary,
+            drop_input, lr_freeze]
 
     # Add -label params for supervised model
     if model_name == 'supervised':
@@ -269,12 +280,14 @@ def skipgram(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
         min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000,
         minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
+        drop_input=0.0, lr_freeze=0,
         silent=1, encoding='utf-8'):
     label_prefix = ''
     return train_wrapper('skipgram', input_file, output, label_prefix, lr,
             dim, ws, epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn,
             maxn, thread, lr_update_rate, t, verbose, 
             save_vectors, save_label_vectors, dictionary,
+            drop_input, lr_freeze,
             silent, encoding='utf-8')
 
 # Learn word representation using CBOW model
@@ -282,12 +295,14 @@ def cbow(input_file, output, lr=0.05, dim=100, ws=5, epoch=5, min_count=5,
         min_count_label=0, neg=5, word_ngrams=1, loss='ns', bucket=2000000,
         minn=3, maxn=6, thread=12, lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
+        drop_input=0.0, lr_freeze=0,
         silent=1, encoding='utf-8'):
     label_prefix = ''
     return train_wrapper('cbow', input_file, output, label_prefix, lr, dim,
             ws, epoch, min_count,  min_count_label, neg, word_ngrams, loss, bucket, minn, maxn,
             thread, lr_update_rate, t, verbose, 
             save_vectors, save_label_vectors, dictionary,
+            drop_input, lr_freeze,
             silent, encoding)
 
 # Train classifier
@@ -296,9 +311,11 @@ def supervised(input_file, output, label_prefix='__label__', lr=0.1, dim=100,
         loss='softmax', bucket=2000000, minn=0, maxn=0, thread=12,
         lr_update_rate=100, t=1e-4, verbose=2,
         save_vectors=1, save_label_vectors=1, dictionary='',
+        drop_input=0.0, lr_freeze=0,
         silent=1, encoding='utf-8'):
     return train_wrapper('supervised', input_file, output, label_prefix, lr,
             dim, ws, epoch, min_count, min_count_label, neg, word_ngrams, loss, bucket, minn,
             maxn, thread, lr_update_rate, t, verbose, 
             save_vectors, save_label_vectors, dictionary,
+            drop_input, lr_freeze,
             silent, encoding)
