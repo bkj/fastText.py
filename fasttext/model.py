@@ -76,11 +76,11 @@ class SupervisedModel(object):
         return self._model.classifier_test(test_file, k, self.encoding)
 
     def predict(self, texts, k=1):
-        return [self._model.classifier_predict(text + ' </s>', k,
+        return [self._model.classifier_predict(text.strip() + ' </s>', k,
                     self.label_prefix, self.encoding) for text in texts]
 
     def predict_proba(self, texts, k=1):
-        return [self._model.classifier_predict_prob(text + ' </s>', k,
+        return [self._model.classifier_predict_prob(text.strip() + ' </s>', k,
                     self.label_prefix, self.encoding) for text in texts]
 
 # Class for test result
