@@ -85,6 +85,10 @@ class SupervisedModel(object):
     def predict_proba(self, texts, k=1):
         return [self._model.classifier_predict_prob(text.strip() + ' </s>', k,
                     self.label_prefix, self.encoding) for text in texts]
+    
+    def get_vector(self, text):
+        words = text.split() + ['</s>']
+        return np.mean([self._model.get_vector(word, self.encoding) for word in words], axis=0)
 
 # Class for test result
 class ClassifierTestResult(object):
