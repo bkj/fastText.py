@@ -72,6 +72,9 @@ class SupervisedModel(object):
         self.label_prefix = label_prefix
         self.encoding = encoding
 
+    def __getitem__(self, word):
+        return self._model.get_vector(word, self.encoding)
+
     def test(self, test_file, k=1):
         return self._model.classifier_test(test_file, k, self.encoding)
 
